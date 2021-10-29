@@ -11,3 +11,45 @@
 [[24  3  1]<br>
  [ 3 13  6]<br>
  [ 0  2 22]]
+---
+# To install yfinance & talib on colab :<br>
+
+```python
+!pip install yfinance
+```
+
+```python
+!wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+```
+
+```python
+!tar xvzf ta-lib-0.4.0-src.tar.gz
+```
+
+```python
+import os
+```
+
+```python
+os.chdir('ta-lib')
+```
+
+```python
+!./configure --prefix=/usr
+```
+
+```python
+!make
+```
+
+```python
+!make install
+```
+
+```python
+os.chdir('../')
+```
+
+```python
+!pip install TA-Lib
+```
