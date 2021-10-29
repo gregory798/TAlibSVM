@@ -32,8 +32,6 @@ df['Ret'] = (df['Open'].shift(-1)-df['Open'])/df['Open']
 for i in range(1, n):
     df['r%i' % i] = df['Ret'].shift(i)
 
-df.loc[df['Corr'] < -1, 'Corr'] = -1
-df.loc[df['Corr'] > 1, 'Corr'] = 1
 df = df.dropna()
 
 
@@ -63,12 +61,12 @@ cls = SVC(C = c, kernel = k, gamma = g)
 S = StandardScaler()
 cls.fit(S.fit_transform(X.iloc[:split]), y.iloc[:split])
 
-y_predict = cls.predict(ss.transform(X.iloc[split:]))
+y_predict = cls.predict(S.transform(X.iloc[split:]))
 
 df['Pred_Signal'] = 0
 
 df.iloc[:split, df.columns.get_loc('Pred_Signal')] = pd.Series(
-    cls.predict(ss.transform(X.iloc[:split])).tolist())
+    cls.predict(S.transform(X.iloc[:split])).tolist())
 
 df.iloc[split:, df.columns.get_loc('Pred_Signal')] = y_predict
 
